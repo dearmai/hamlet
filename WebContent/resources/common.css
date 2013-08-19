@@ -1,0 +1,53 @@
+#app-header {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8fc33a), color-stop(100%, #739b2e));
+  background-image: -webkit-linear-gradient(top, #8fc33a, #739b2e);
+  background-image: -moz-linear-gradient(top, #8fc33a, #739b2e);
+  background-image: -o-linear-gradient(top, #8fc33a, #739b2e);
+  background-image: linear-gradient(top, #8fc33a, #739b2e);
+  border-bottom: 1px solid #567422;
+}
+.x-nlg #app-header {
+  background-image: url(images/header-bg.png);
+}
+
+/* line 23, ../../../../kitchensink/sass/src/view/Header.scss */
+#app-header-title {
+  padding: 15px 10px 10px 31px;
+  background: url(/resources/images/logo.png) no-repeat 10px 11px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #4e691f;
+}
+.feed {
+	width: 16px;
+	height: 16px;
+	background-image: url(/common/images/icon/rss.gif) !important;
+}
+.feed-picker-url {
+	 float: left;
+	 width: 425px;
+}
+.feed-picker-title {
+	/*    float: left;*/
+	 color: #777;
+	 font-size: 10px;
+}
+.feed-list {
+ 	padding: 0 3px 0 3px;
+}
+.feed-list-item {
+	margin-top: 3px;
+	 padding-left: 20px;
+	 font-size: 11px;
+	 line-height: 20px;
+	 cursor: pointer;
+	 background: url(common/images/icon/rss.gif) no-repeat 0 2px;
+	 border: 1px solid #fff;
+}
+.feed-list .x-item-selected {
+	 font-weight: bold;
+	 color: #15428B;
+	 background-color: #DFE8F6;
+	 border: 1px dotted #A3BAE9;
+}

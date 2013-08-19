@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+@import '/ext/packages/ext-theme-neptune/build/resources/ext-theme-neptune-all.css';
+@import url("default.css");
+@import url("layout.css");
+@import url("common.css");
+@import url("dashboard.css")
+@import url("popup.css");
+@import url("Extjs.css");

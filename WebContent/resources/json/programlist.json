@@ -1,0 +1,16 @@
+/**
+ ** Date : 2012.11.30
+ ** Desc : 시스템이하 프로그램 리스트 제공
+ ** Posn : /json/programlist.json
+ **/
+{"entitys":[
+{
+	"pgm_class":"HAMLET.view.Monitor","pgm_key":"hamlet1","pgm_icon":"grid","title":"웹서버 - Blog"
+},
+{
+	"pgm_class":"HAMLET.view.Monitor","pgm_key":"hamlet2","pgm_icon":"grid","title":"웹서버 - Site"
+},{
+	"pgm_class":"HAMLET.view.Monitor","pgm_key":"hamlet3","pgm_icon":"grid","title":"개발 서버1"
+}								
+],
+"errMsg":"","errTitle":"검색결과","message":"","success":true,"totalCount":"2"}

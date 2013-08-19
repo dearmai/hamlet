@@ -1,0 +1,214 @@
+@charset "utf-8";
+/* 기존 디자인에 ExtJS를 함께 쓸 경우 사용한다. */
+
+/* 팝업에서 ExtJS Combo 사용시 */
+.popup_wrap .edit_wrap .extjscmb table td	{padding-top:0px; vertical-align:top;}
+
+input.x-form-field.x-form-text {height:22px !important;}
+
+.srch_wrap .srch_form .extjscmb table td {padding:0 0px; border-top:1px dashed #d0d0d0; background:#fff;}
+
+
+
+/** 그리드 셀 높이 제어**/
+.x-grid-row {
+	height : 30px;
+}
+
+/**
+.x-grid-cell-inner {
+	margin-top:auto;
+	margin-bottom:5px;
+	margin-left:10px;
+	margin-right:auto;
+	overflow: hidden;
+	white-space: nowrap;
+	width:100%;
+	height:100%;
+}
+**/
+
+.x-grid-cell-inner {
+   overflow: hidden;
+   vertical-align:center;
+   padding: 5px 5px;
+   white-space: nowrap;
+}
+
+/** 메인화면에서 gray테마를 쓰고 있고 팝업에서는 neptune윈도우를 써야하는 상황을 위한 css조정이다.
+ ** Start..
+*/
+/** 이하 formPanel **/
+.x-panel-default-framed {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 0px 0px 0px 0px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: white;
+}
+
+.x-toolbar-footer {
+	background: #dfeaf2;
+	border: 0;
+	margin: 0;
+	padding: 6px 0 6px 6px;
+}
+
+.x-panel-default-framed {
+    border-color: #157fcc;
+    padding: 0;
+}
+
+/** 폼의 배경 그레이를 힌색으로 변경 */
+.x-panel-body-default-framed {
+	background: white;
+	/*border-color: #157fcc;*/
+	/*color: black;*/
+	font-size: 13px;
+	font-size: normal;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.x-btn-default-small {
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+-ms-border-radius: 3px;
+-o-border-radius: 3px;
+border-radius: 3px;
+padding: 3px 3px 3px 3px;
+border-width: 1px;
+border-style: solid;
+background-image: none;
+background-color: #3892d3;
+background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4b9cd7), color-stop(50%, #3892d3), color-stop(51%, #358ac8), color-stop(100%, #3892d3));
+background-image: -webkit-linear-gradient(top, #4b9cd7, #3892d3 50%, #358ac8 51%, #3892d3);
+background-image: -moz-linear-gradient(top, #4b9cd7, #3892d3 50%, #358ac8 51%, #3892d3);
+background-image: -o-linear-gradient(top, #4b9cd7, #3892d3 50%, #358ac8 51%, #3892d3);
+background-image: linear-gradient(top, #4b9cd7, #3892d3 50%, #358ac8 51%, #3892d3);
+}
+.x-btn-default-small {
+border-color: #126daf;
+}
+.x-btn-default-small:after {
+display: none;
+content: "x-slicer:stretch:bottom, frame-bg:url(/resources/extjs42/resources/ext-theme-neptune/images/btn/btn-default-small-fbg.gif), bg:url(/resources/extjs42/resources/ext-theme-neptune/images/btn/btn-default-small-bg.gif), corners:url(/resources/extjs42/resources/ext-theme-neptune/images/btn/btn-default-small-corners.gif), sides:url(/resources/extjs42/resources/ext-theme-neptune/images/btn/btn-default-small-sides.gif)";
+}
+.x-btn-default-small .x-btn-inner {
+font-size: 12px;
+font-weight: bold;
+font-family: helvetica, arial, verdana, sans-serif;
+color: white;
+padding: 0 5px;
+}
+
+/** 메인화면에서 gray테마를 쓰고 있고 팝업에서는 neptune윈도우를 써야하는 상황을 위한 css조정이다.
+ ** Start..
+*/
+
+.x-window-default {
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-ms-border-radius: 5px;
+-o-border-radius: 5px;
+border-radius: 5px;
+padding: 0px 0px 0px 0px;
+border-width: 2px;
+border-style: solid;
+background-color: #e8e8e8;
+}
+.x-window-body-default {
+border-color: #3892d3;
+border-width: 1px;
+border-style: solid;
+background: white;
+color: black;
+}
+
+.x-window-header-default {
+border-width: 1px !important;
+}
+
+.x-window-header-default-top {
+-moz-border-radius-topleft: 4px;
+-webkit-border-top-left-radius: 4px;
+border-top-left-radius: 4px;
+-moz-border-radius-topright: 4px;
+-webkit-border-top-right-radius: 4px;
+border-top-right-radius: 4px;
+-moz-border-radius-bottomright: 0;
+-webkit-border-bottom-right-radius: 0;
+border-bottom-right-radius: 0;
+-moz-border-radius-bottomleft: 0;
+-webkit-border-bottom-left-radius: 0;
+border-bottom-left-radius: 0;
+padding: 5px 5px 5px 5px;
+border-width: 5px 5px 5px 5px;
+border-style: solid;
+background-color: #3892d3;
+}
+.x-window-header-default {
+font-size: 13px;
+border-color: #3892d3;
+zoom: 1;
+background-color: #3892d3;
+}
+.x-window-header-default {
+font-size: 13px;
+zoom: 1;
+}
+.x-window-header-text-container-default {
+color: white;
+font-weight: bold;
+line-height: 15px;
+font-family: arial, helvetica, verdana, sans-serif;
+font-size: 13px;
+padding: 1px 0 0;
+text-transform: none;
+}
+
+.x-border-layout-ct {
+background-color: #3892d3;
+}
+.x-border-layout-ct {
+background-color: #3892d3;
+}
+.x-resizable-handle {
+background-color: #157fcc;
+background-repeat: no-repeat;
+}
+
+.x-action-col-0{height: 19px;width: 52px; margin-right:8px;}
+.x-action-col-1 {height: 19px;width: 52px;}
+
+.x-fieldset {
+background: #f7f7f7;
+border: 1px #c0d6e5 solid;
+padding: 0 10px;
+margin: 0 0 10px;
+}
+
+
+/** repository monitoring */
+.x-panel-body-default {
+	background: white;
+	border-color: #d0d0d0;
+	color: black;
+	font-size: 12px;
+	font-size: normal;
+	border-width: 0px;
+	border-style: solid;
+}
+
+/** dt를 대신해서 사용 **/
+.repository_wrap .chart_area .x-component {
+	background: #f7f7f7;
+	background: url('../images/common/icon.gif') no-repeat left -143px;
+	padding-left: 10px;
+	line-height: 18px;
+	height: 22px;
+}
