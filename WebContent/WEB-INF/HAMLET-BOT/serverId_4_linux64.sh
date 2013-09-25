@@ -1,0 +1,1 @@
+/usr/local/bin/casperjs /home/www/hamlet.sencha.or.kr/WEB-INF/HAMLET-BOT/HAMLET_Scripts/hamletBot.js 4 "http://www.naver.com/404error" "http://hamlet.sencha.or.kr:8080/BotReceiverSvl?" "네이버" "http://hamlet.sencha.or.kr/hamlet/server_perf.jsp" "/home/www/hamlet.sencha.or.kr/hamlet/capture_images/" "false" "" ''
