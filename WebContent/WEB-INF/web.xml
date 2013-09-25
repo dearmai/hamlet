@@ -1,40 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	<display-name>HAMLET</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<description></description>
-		<display-name>BotReceiverSvl</display-name>
-		<servlet-name>BotReceiverSvl</servlet-name>
-		<servlet-class>kr.or.sencha.hamlet.receiver.BotReceiverSvl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>BotReceiverSvl</servlet-name>
-		<url-pattern>/BotReceiverSvl</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>QuartzInitializer</servlet-name>
-		<servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
-		<init-param>
-			<param-name>shutdown-on-unload</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet>
-		<servlet-name>HamletScheduler</servlet-name>
-		<servlet-class>kr.or.sencha.hamlet.scheduler.HamletScheduler</servlet-class>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>HAMLET</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <description></description>
+    <display-name>BotReceiverSvl</display-name>
+    <servlet-name>BotReceiverSvl</servlet-name>
+    <servlet-class>kr.or.sencha.hamlet.receiver.BotReceiverSvl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BotReceiverSvl</servlet-name>
+    <url-pattern>/servlet/BotReceiverSvl</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <description></description>
+    <display-name>ServerDataSvl</display-name>
+    <servlet-name>ServerDataSvl</servlet-name>
+    <servlet-class>kr.or.sencha.hamlet.receiver.ServerDataSvl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServerDataSvl</servlet-name>
+    <url-pattern>/servlet/ServerDataSvl</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>QuartzInitializer</servlet-name>
+    <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
+    <init-param>
+      <param-name>shutdown-on-unload</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+         <param-name>wait-on-shutdown</param-name>
+         <param-value>true</param-value>
+     </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>HamletScheduler</servlet-name>
+    <servlet-class>kr.or.sencha.hamlet.scheduler.HamletScheduler</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  
 </web-app>

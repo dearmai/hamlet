@@ -8,7 +8,7 @@
 }
 /* html base */
 html, body, h1, h2, h3, h4, h5, h6, div, p, span, br, a, ul, ol, li, form, fieldset, legend, input, button, select, textarea, table, thead, tbody, tr, th, td, address, iframe, dl, dt, dd
-	{margin:0; padding:0; font-size:11px; font-family:Tahoma, dotum, '돋움', sans-serif; color:#555;}
+	{margin:0; padding:0; font-size:11px; font-family:Tahoma, dotum, '돋움', sans-serif;}
 /* html5 base */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
 /* body base */

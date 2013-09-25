@@ -1,9 +1,13 @@
 package kr.or.sencha.hamlet.scheduler;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -13,69 +17,104 @@ import org.quartz.PersistJobDataAfterExecution;
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution
 public class PhantomJob implements Job {
-	
 
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		
+
 		// 스케쥴러에서 넘어온 Context.
-		JobDetail temp = arg0.getJobDetail();
-	
+		JobDetail jobDetail = arg0.getJobDetail();
+		
+		JobDataMap jobMap = jobDetail.getJobDataMap();
+				
+		String casperjsHome = (String)jobMap.get("casperjs_home");
+		String hamletScriptPath = (String)jobMap.get("hamlet_bot_script_path");
+		String botReceiver = (String)jobMap.get("bot_receiver");
+		String serverPerf = (String)jobMap.get("server_perf");
+		String imagePath = (String)jobMap.get("image_path");
+		
+		HashMap jobInfo = (HashMap)jobMap.get("job_info_map");
+		String serverId = jobInfo.get("server_id").toString();
+		String serverUrl = (String)jobInfo.get("server_url");
+		String successString = (String)jobInfo.get("success_string");
+		String isLoginFlow = (String)jobInfo.get("is_login_flow");
+		String loginFormQuery = (String)jobInfo.get("login_form_query");
+		String idName = (String)jobInfo.get("id_name");
+		String idValue = (String)jobInfo.get("id_value");
+		String passwordName = (String)jobInfo.get("password_name");
+		String passwordValue = (String)jobInfo.get("password_value");
+
+		// 명령어 리스트
+		List <String> commandList = new ArrayList<String>();
+		
+		if("3".equals(serverId)){
+			Random oRandom = new Random();
+			if(oRandom.nextBoolean()){
+				serverUrl = serverUrl + "/404.html";				
+			}
+		}
+		
+		commandList.add(casperjsHome == null ? "" : casperjsHome);
+		commandList.add(hamletScriptPath == null ? "" : hamletScriptPath);
+		commandList.add(serverId == null ? "" : serverId);
+		commandList.add(serverUrl == null ? "" : serverUrl);
+		commandList.add(botReceiver == null ? "" : botReceiver);
+		commandList.add(successString == null ? "" : successString);
+		commandList.add(serverPerf == null ? "" : serverPerf);
+		commandList.add(imagePath == null ? "" : imagePath);
+		commandList.add("Y".equals(isLoginFlow) ? "true" : "false");
+		
+		// 로그인 처리를 하는 경우
+		if("Y".equals(isLoginFlow)){
+			commandList.add(loginFormQuery == null ? "" : loginFormQuery);
+			commandList.add("{\""+ idName + "\":\""+ idValue + "\", \""+ passwordName + "\":\""+ passwordValue + "\"}");
+		// 로그인 처리를 하지 않는 경우
+		}else{
+			commandList.add("");
+			commandList.add("\'\'");
+		}
+
 		try{
-			Process process = null;
 			String osName = System.getProperty("os.name");
-			
+
 			// 경로 구분자
 			String pathDelimiter = osName.toLowerCase().startsWith("window") ? "\\" : "/";
-			// phantom 실행경로
-			String home = (String)temp.getJobDataMap().get("home");
-			
-			// 명령어
-			String[] cmd = null;
-			
-			System.out.println("### osName.toLowerCase() : " + osName.toLowerCase() );//TODO 수정 필요
-			
+			ProcessBuilder pb = null;
+
 			// 윈도우 실행 명령어
 			if(osName.toLowerCase().startsWith("window")) {
-			    cmd = new String[] { "cmd.exe", "/y", "/c", home + pathDelimiter + "serverId_1_windows.bat " + home};
+				
+				pb = new ProcessBuilder(commandList);
+				
 			// 맥 실행 명령어
 			} else if(osName.toLowerCase().startsWith("mac")){
-				// sh는 파라메터가 전달되지 않아서 bash로 실행
-				cmd = new String[] { "/bin/bash", "-c",  home + pathDelimiter + "serverId_1_macosx.sh " + home};
-			// 리눅스 실행 명령어
+				pb = new ProcessBuilder(commandList);
 			}else{
-				// sh는 파라메터가 전달되지 않아서 bash로 실행
-				cmd = new String[] { "/bin/bash", "-c",  home + pathDelimiter + "serverId_1_linux64.sh " + home};//TODO 수정 필요
+				pb = new ProcessBuilder(commandList);
 			}
-			
-			// 명령어 실행
-			process = Runtime.getRuntime().exec(cmd);
-			
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			// 명령어 상에서 에러가 발생했을경우 출력
-			String s = null;
-			while ((s = stdError.readLine()) != null) {
-				System.out.println(s);
-	        }
-			
-			//int exitStatus = process.waitFor();
-			// 명령어 실행후 결과를 읽어들임
-		    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader (process.getInputStream()));
 
-		    String currentLine=null;
-		    StringBuilder stringBuilder = new StringBuilder();
-		    currentLine= bufferedReader.readLine();
-		    while(currentLine !=null)
-		    {
-		        stringBuilder.append(currentLine+"\n");
-		        currentLine = bufferedReader.readLine();
-		    }
-		    // 명렁어 실행후 결과를 화면에 출력
-		    System.out.println(stringBuilder.toString());
+			System.out.print(pb.command()); 
+			Process proc = pb.start(); 
+			
+			/*// any error message?
+			StreamGobbler errorGobbler = new 
+					StreamGobbler(proc.getErrorStream(), "ERROR");            
+
+			// any output?
+			StreamGobbler outputGobbler = new 
+					StreamGobbler(proc.getInputStream(), "OUTPUT");
+			
+			// kick them off
+            errorGobbler.start();
+            outputGobbler.start();*/
+            
+            // any error???
+            int exitVal = proc.waitFor();
+            System.out.println("ExitValue: " + exitVal + ". serverId:" + serverId + " on " + (new Date()).toString() + ", next fire date is " + arg0.getNextFireTime());
+            proc.destroy();
 
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

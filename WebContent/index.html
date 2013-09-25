@@ -5,11 +5,30 @@
     <title>HAMLET</title>
     <!-- <x-compile> -->
         <!-- <x-bootstrap> -->
-            <link rel="stylesheet" href="/resources/css/hamlet.css">
-            <script src="ext/ext-dev.js"></script>
-            <script src="bootstrap.js"></script>
+        <link rel="stylesheet" href="/resources/css/hamlet.css">
+        <link rel="stylesheet" href="/lightbox.css">
+        <script src="ext/ext-dev.js"></script>
+        <script src="bootstrap.js"></script>
         <!-- </x-bootstrap> -->
         <script src="app.js"></script>
+        <script src="lightbox.js"></script>
+
+        <script>
+            Ext.ux.Lightbox.register('a[rel^=lightbox]');
+            Ext.ux.Lightbox.register('a.lb-flower', true); // true to show them as a set
+        </script>
+
+        <style>
+            .thumbnail {
+            	padding: 4px;
+            	background-color: #e6e6e0;
+            	border: 1px solid #d6d6d0;
+            	float: left;
+            	margin-right: 10px;
+            	margin-bottom: 10px;
+        	}
+        </style>
+        
     <!-- </x-compile> -->
 </head>
 <body>              ,

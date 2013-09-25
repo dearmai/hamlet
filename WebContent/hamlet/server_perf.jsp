@@ -58,15 +58,13 @@ map.put("vm_free_mem_ratio", unusedRatio);
 List<HashMap> disks = new ArrayList();
 
 File[] roots = File.listRoots();
-for (File root: roots) {
-	HashMap disk = new HashMap();
-	disk.put("diskName" , root.getAbsolutePath());
-	disk.put("freeSpace", root.getFreeSpace() / 1024 / 1024);		//byte를 MByte로 변경 
-	disk.put("totalSpace", root.getTotalSpace() / 1024 / 1024);	//byte를 MByte로 변경 
-	disk.put("useSpace", (root.getTotalSpace() - root.getFreeSpace()) /1024 /1024); //byte를 MByte로 변경
-	disks.add(disk);
-}
-map.put("disks", disks);
+File root = roots[0];
+
+	map.put("diskName" , root.getAbsolutePath());
+	map.put("freeSpace", root.getFreeSpace() / 1024 / 1024);		//byte를 MByte로 변경 
+	map.put("totalSpace", root.getTotalSpace() / 1024 / 1024);	//byte를 MByte로 변경 
+	map.put("useSpace", (root.getTotalSpace() - root.getFreeSpace()) /1024 /1024); //byte를 MByte로 변경
+	
 JSONObject jsonobj = new JSONObject();
 jsonobj = JSONObject.fromObject(JSONSerializer.toJSON(map));
 		

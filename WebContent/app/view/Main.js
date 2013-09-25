@@ -8,6 +8,7 @@ Ext.define('HAMLET.view.Main', {
         'HAMLET.view.WestMenuDataViewPanel',
         'HAMLET.view.ServerStatus',
         'HAMLET.view.ServerGrid',
+        'HAMLET.view.ServerRowDataGrid',
         'HAMLET.view.ServerChart'
     ],
     
@@ -32,15 +33,14 @@ Ext.define('HAMLET.view.Main', {
         	flex : 1
         },{
         	xtype : 'ServerStatus',
-        	title :' 상태',
+			overflowY :'auto',
+        	title : '서버 정보',
         	flex : 1
         }],
-        width: 240 
+        width: 280 
     },{
         region: 'center',
-        xtype: 'tabpanel',
-        items:[{
-            title: '대시보드'
-        }]
+        xtype: 'tabpanel'
+        
     }]
 });

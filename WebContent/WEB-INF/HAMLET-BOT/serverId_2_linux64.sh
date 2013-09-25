@@ -1,3 +1,1 @@
-export hamlet_phantom_home=$1
-
-$hamlet_phantom_home/phantomjs-linux64/bin/phantomjs $hamlet_phantom_home/HAMLET_Scripts/hamlet_2.js
+/usr/local/bin/casperjs /home/www/hamlet.sencha.or.kr/WEB-INF/HAMLET-BOT/HAMLET_Scripts/hamletBot.js 2 "http://yobi.d2fest.kr/users/loginform" "http://hamlet.sencha.or.kr:8080/BotReceiverSvl?" "김종광" "http://hamlet.sencha.or.kr/hamlet/server_perf.jsp" "/home/www/hamlet.sencha.or.kr/hamlet/capture_images/" "true" "form[action='/users/login']" '{"loginId":"hamletbot","password":"senchaorkr"}'

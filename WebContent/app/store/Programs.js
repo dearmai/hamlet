@@ -5,6 +5,7 @@
  */
 Ext.define('HAMLET.store.Programs', {
     extend: 'Ext.data.Store',
+	storeId: 'Programs',
 	autoLoad : false,
     model: 'HAMLET.model.Program',
 	proxy: {

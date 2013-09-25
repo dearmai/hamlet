@@ -56,7 +56,7 @@
     <target depends="init" name="build">
     	<echo message="---- build Start ----"/>
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" includeantruntime="false" source="${java.source.ver}" target="${java.target.ver}">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" includeantruntime="false" source="${java.source.ver}" target="${java.target.ver}" encoding="UTF-8">
             <src path="${source.dir}"/>
             <classpath refid="HAMLET.classpath"/>
         </javac>

@@ -16,6 +16,82 @@
 		resultType : iBatis의 resultClass와 같은 역할로 처음 선언했던 Configuration.xml의 
 		typeAlias를 나타냅니다.
 	-->
+	<!-- // 최하위 로우데이터  -->
+	<select id="serverDatasRow" resultType="org.apache.commons.collections.map.CaseInsensitiveMap" parameterType="java.util.HashMap">
+		select 	server_id, 
+				created_date, 
+				status, 
+				image, 
+				latency as target_latency, 
+				round(((vm_total_mem-vm_free_mem)/vm_total_mem)*100) as vm_use_rate,
+				vm_total_mem,
+				vm_free_mem, 
+				os_total_mem, 
+				disk_total_space, 
+				disk_free_space,
+				msg 
+		from server_data 
+		where server_id = #{serverId}
+		and created_date like '%${created_date}%' 
+		and vm_total_mem > vm_free_mem
+		order by created_date desc
+		limit 0 ,500
+	</select>
+	
+	<select id="serverDatasHour" resultType="org.apache.commons.collections.map.CaseInsensitiveMap" parameterType="java.util.HashMap">
+		select 	server_id, substr(created_date,1, 13) group_date, substr(created_date,6, 8) created_date, 
+				round((SUM(CASE status WHEN 'true' THEN 1 ELSE 0 END) / COUNT(*))*100) as success_rate,
+				SUM(CASE status WHEN 'true' THEN 0 ELSE 1 END) fail_count,
+				round(sum(latency) / count(*)) average_latency,
+				round(sum(((vm_total_mem-vm_free_mem)/vm_total_mem)*100)/count(*)) as average_vm_use_rate
+		 from server_data 
+		where server_id = #{serverId}
+		and vm_total_mem > vm_free_mem
+		group by server_id,  substr(created_date,1, 13)
+		order by created_date desc
+		limit 0 ,${displayDataCount}
+	</select>
+	
+	<select id="serverDatasDay" resultType="org.apache.commons.collections.map.CaseInsensitiveMap" parameterType="java.util.HashMap">
+		select 	server_id, substr(created_date,1, 10) group_date, substr(created_date,6, 5) created_date, 
+				round((SUM(CASE status WHEN 'true' THEN 1 ELSE 0 END) / COUNT(*))*100) as success_rate,
+				SUM(CASE status WHEN 'true' THEN 0 ELSE 1 END) fail_count,
+				round(sum(latency) / count(*)) average_latency,
+				round(sum(((vm_total_mem-vm_free_mem)/vm_total_mem)*100)/count(*)) as average_vm_use_rate
+		 from server_data 
+		where server_id = #{serverId}
+		and vm_total_mem > vm_free_mem
+		group by server_id,  substr(created_date,1, 10)
+		order by created_date desc
+		limit 0 ,${displayDataCount}
+	</select>
+	<select id="serverDatasMonth" resultType="org.apache.commons.collections.map.CaseInsensitiveMap" parameterType="java.util.HashMap">
+		select 	server_id, substr(created_date,1, 7) group_date, substr(created_date,1, 7) created_date, 
+				round((SUM(CASE status WHEN 'true' THEN 1 ELSE 0 END) / COUNT(*))*100) as success_rate,
+				SUM(CASE status WHEN 'true' THEN 0 ELSE 1 END) fail_count,
+				round(sum(latency) / count(*)) average_latency,
+				round(sum(((vm_total_mem-vm_free_mem)/vm_total_mem)*100)/count(*)) as average_vm_use_rate
+		 from server_data 
+		where server_id = #{serverId}
+		and vm_total_mem > vm_free_mem
+		group by server_id,  substr(created_date,1, 7)
+		order by created_date desc
+		limit 0 ,${displayDataCount}
+	</select>
+	<select id="serverDatasYear" resultType="org.apache.commons.collections.map.CaseInsensitiveMap" parameterType="java.util.HashMap">
+		select 	server_id, substr(created_date,1, 4) group_date, substr(created_date,1, 4) created_date, 
+				round((SUM(CASE status WHEN 'true' THEN 1 ELSE 0 END) / COUNT(*))*100) as success_rate,
+				SUM(CASE status WHEN 'true' THEN 0 ELSE 1 END) fail_count,
+				round(sum(latency) / count(*)) average_latency,
+				round(sum(((vm_total_mem-vm_free_mem)/vm_total_mem)*100)/count(*)) as average_vm_use_rate
+		 from server_data 
+		where server_id = #{serverId}
+		and vm_total_mem > vm_free_mem
+		group by server_id,  substr(created_date,1, 4)
+		order by created_date desc
+		limit 0 ,${displayDataCount}
+	</select>
+	
 	<select id="selectSample" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 select * from server_list  where server_id = #{id}
 	</select>
@@ -33,6 +109,7 @@ insert into server_data (
   ,os_free_mem
   ,disk_total_space
   ,disk_free_space
+  ,msg
 ) VALUES (
    #{server_id}   					-- server_id - IN int(11)
   ,#{created_date}  				-- created_date - IN varchar(50)
@@ -45,10 +122,124 @@ insert into server_data (
   ,#{os_free_mem}   				-- cpu - IN int(11)
   ,#{disk_total_space}   		-- cpu - IN int(11)
   ,#{disk_free_space}   		-- cpu - IN int(11)
+  ,#{msg}
 )
 	</insert>
 	
-	<select id="getMenuInfoList" parameterType="java.util.HashMap" resultType="java.util.LinkedHashMap">
+	<update id="updateSite" parameterType="java.util.HashMap">
+		update server_list
+		   set parent_id = #{parent_id}
+		       ,server_name = #{server_name}
+		       ,server_url = #{server_url}
+		       ,created_date = now()
+		       ,is_login_flow = #{is_login_flow}
+		       ,login_form_query = #{login_form_query}
+		       ,id_name = #{id_name}
+		       ,id_value = #{id_value}
+		       ,password_name = #{password_name}
+		       ,password_value = #{password_value}
+		       ,success_string = #{success_string}
+		 where server_id = #{server_id}
+	</update>
+	
+	<delete id="deleteServerData" parameterType="java.lang.String">
+		delete from server_data where server_id = #{server_id}
+	</delete>
+	
+	<delete id="deleteServerAllData" parameterType="java.lang.String">
+		delete from server_data
+	</delete>
+	
+	<delete id="deleteAllSite">
+		delete from server_list
+	</delete>
+	
+	<delete id="deleteChildSite" parameterType="java.util.HashMap">
+		delete from server_list
+		 where parent_id = #{parent_id}
+	</delete>
+	
+	<delete id="deleteSite" parameterType="java.util.HashMap">
+		delete from server_list
+		 where server_id = #{server_id}
+	</delete>
+	
+	<select id="getProgramDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select server_id
+		       ,parent_id
+		       ,server_name
+		       ,server_url
+		       ,is_login_flow
+		       ,login_form_query
+		       ,id_name
+		       ,id_value
+		       ,password_name
+		       ,password_value
+		       ,success_string
+		  from server_list
+		 where server_id =  #{server_id}
+	</select>
+	
+	<select id="getMaxServerId" resultType="java.lang.String">
+		  select ifnull(max(server_id),0)+1 from server_list
+	</select>
+	
+	<insert id="insertSite" parameterType="java.util.HashMap">
+		insert into server_list (
+			server_id, parent_id, server_name, created_date
+			
+			<if test="parent_id != 0">
+				,server_url 	,is_login_flow 	,login_form_query
+				,id_name 		,id_value 		,password_name
+				,password_value ,success_string
+			</if>
+			
+		) values(
+			#{server_id}, #{parent_id}, #{server_name}, now()
+			<if test="parent_id != 0">
+				,#{server_url} 		,#{is_login_flow} 	,#{login_form_query}
+				,#{id_name} 		,#{id_value} 		,#{password_name}
+				,#{password_value} 	,#{success_string}
+			</if>
+		)
+	</insert>
+	
+	<select id="getServerIdList" parameterType="java.util.HashMap" resultType="java.util.LinkedHashMap">
+		select server_id
+		  from server_list
+		 where parent_id = #{parent_id}
+	</select>
+	
+	<select id="getJobList" resultType="java.util.LinkedHashMap"> 
+		select server_id
+		       ,server_name
+		       ,server_url
+		       ,ifnull(is_login_flow, 'N') is_login_flow
+		       ,login_form_query
+		       ,id_name
+		       ,id_value
+		       ,password_name
+		       ,password_value
+		       ,success_string
+		  from server_list
+		 where parent_id != '0'
+	</select>
+	
+	<select id="getGroupList" parameterType="java.util.HashMap" resultType="java.util.LinkedHashMap">
+		select server_id
+		       ,server_name
+		  from server_list
+		 where 1 = 1
+		 <if test="parent_id == null">
+		   and parent_id = '0'
+		 </if>
+		 <if test="parent_id != null">
+		   and parent_id = #{parent_id}
+		 </if>
+		 
+	</select>
+	
+	<select id="getMenuList" parameterType="java.util.HashMap" resultType="java.util.LinkedHashMap">
 		select * 
 		  from server_list
 		 where 1 = 1
@@ -67,5 +258,26 @@ select * from server_data where server_id = #{serverId}
 	<select id="sampleSelectOne" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 select server_name from server_list where server_id = #{serverId}
 	</select>
+
+<!--
+	이하는 API 구현을 위해 추가한 쿼리들 입니다. Hamlet의 메인 기능에서는 사용하지 않습니다. 
+-->
+	<select id="getServerList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+select * from server_list order by server_id
+	</select>
+	<select id="getServerData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+SELECT * FROM server_data where server_id = #{serverId} order by created_date desc LIMIT #{limit}
+	</select>
+	<select id="getErrorLog" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+SELECT * FROM server_data where status = 'false' order by created_date desc LIMIT #{limit}
+	</select>
+	<select id="getLowDiskSpace" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+SELECT server_id
+     , min( disk_free_space ) min_disk_free_space
+  FROM server_data 
+ WHERE created_date >= #{createdDate}
+ group by server_id
+	</select>
 	
 </mapper>
+

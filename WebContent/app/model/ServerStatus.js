@@ -13,15 +13,21 @@ Ext.define('HAMLET.model.ServerStatus', {
 		"target_memory",
 		"monitor_cycle",
 		"server_id",
-		"create_date",
+		"created_date",
 		"status",
 		"image",
-		"latency",
+		{name:'latency'  , type : 'int'},
+		"vm_use_rate",
 		"vm_total_mem",
 		"vm_free_mem",
 		"os_total_mem",
 		"os_free_mem",
 		"disk_total_space",
-		"disk_free_space"
+		"disk_free_space",
+		"average_vm_use_rate",
+		"success_rate",
+		"fail_count",
+		"average_latency",
+		"group_date"
     ]
 });

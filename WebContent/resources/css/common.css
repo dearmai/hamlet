@@ -13,7 +13,7 @@
 /* line 23, ../../../../kitchensink/sass/src/view/Header.scss */
 #app-header-title {
   padding: 15px 10px 10px 31px;
-  background: url(/resources/images/logo.png) no-repeat 10px 11px;
+  /* background: url(/resources/images/logo.png) no-repeat 10px 11px; */
   color: white;
   font-size: 18px;
   font-weight: bold;
@@ -336,10 +336,10 @@
 
 .tab_body .tab_check_menu	{background:#ececec; padding:5px 10px; overflow:hidden;}
 .tab_body .tab_check_menu li	{float:left;}
-.tab_body .tab_check_menu li label	{color:#222 !important;} /* popup css 와 겹쳐  !important 선언 */
+.tab_body .tab_check_menu li label	{color:#222 !important;} /* popup css ��寃뱀�  !important ��� */
 .tab_body .tab_check_body	{margin-top:5px;}
 .tab_body .tab_check_body li	{overflow:hidden; padding-top:5px;}
-.tab_body .tab_check_body label	{color:#222 !important; padding:0 !important;} /* popup css 와 겹쳐  !important 선언 */
+.tab_body .tab_check_body label	{color:#222 !important; padding:0 !important;} /* popup css ��寃뱀�  !important ��� */
 .tab_body .tab_check_body dt, .tab_body .tab_check_body dd	{float:left; line-height:21px;}
 .tab_body .tab_check_body dt	{background:url('../images/common/icon.gif') no-repeat left -490px; padding-left:5px; width:80px;}
 .tab_body .tab_check_body dd	{}

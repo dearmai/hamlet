@@ -5,6 +5,7 @@
  */
 Ext.define('HAMLET.store.Systems', {
     extend: 'Ext.data.Store',	// 당연히 store상속
+	storeId: 'SystemS',
 	autoLoad : false,			// 자동 로드는 꺼놓자.
 	model: 'HAMLET.model.Program',
 	proxy: {
